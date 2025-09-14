@@ -12,7 +12,14 @@ class JobController extends Controller
      */
     public function index()
     {
-        return view('job.index', ['jobs' => Job::all()]);
+        $filters = request()->only(
+            'search',
+            'min_salary',
+            'max_salary',
+            'experience',
+            'category'
+        );
+        return view('job.index', ['jobs' => Job::filter($filters)->get()]);
     }
 
     /**
